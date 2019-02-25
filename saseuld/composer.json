@@ -1,0 +1,30 @@
+{
+    "name": "artifriends/saseul-origin-saseuld",
+    "type": "project",
+    "authors": [
+        {
+            "name": "artifriends",
+            "email": "help@artifriends.com"
+        }
+    ],
+    "scripts": {
+        "test": "./vendor/bin/kahlan --spec=tests",
+        "fixer": "./vendor/bin/php-cs-fixer fix --config=.php_cs.dist"
+    },
+    "autoload": {
+        "psr-4": {"src\\": "src/"}
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/Artifriends-inc/system_daemon.git"
+        }
+    ],
+    "require": {
+        "pear/system_daemon": "dev-master"
+    },
+    "require-dev": {
+        "kahlan/kahlan": "^4.5",
+        "friendsofphp/php-cs-fixer": "^2.14"
+    }
+}

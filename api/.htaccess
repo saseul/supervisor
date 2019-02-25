@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteBase /
+RewriteCond $1 !^(Files|robots.\.txt)
+RewriteCond %{REQUEST_URI} !(.*)\.(md|ico|json)$ [NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?handler=$1 [QSA,L]

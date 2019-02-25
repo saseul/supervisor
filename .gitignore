@@ -1,0 +1,13 @@
+# IDEA
+tags
+.idea/
+
+# Composer
+*/bin/composer
+vendor/
+
+# PHP-CS-Fixer
+.php_cs.cache
+
+# Application
+logs

@@ -1,0 +1,198 @@
+#!/bin/sh
+
+SCRIPT=`realpath $0`
+SCRIPT_PATH=`dirname $SCRIPT`
+SASEUL_PATH=`dirname $SCRIPT_PATH`
+
+SASEUL_API_PATH=$SASEUL_PATH/"api/src"
+SASEUL_DAEMON_PATH=$SASEUL_PATH/"saseuld/src"
+SASEUL_SCRIPT_PATH=$SASEUL_PATH/"script/src"
+SASEUL_COMMON_PATH=$SASEUL_PATH/"common"
+SASEUL_CUSTOM_PATH=$SASEUL_PATH/"custom"
+
+SASEUL_BLOCK_PATH=$SASEUL_PATH/"blockchain"
+SASEUL_BLOCK_APATH=$SASEUL_BLOCK_PATH/"apichunks"
+SASEUL_BLOCK_BPATH=$SASEUL_BLOCK_PATH/"broadcastchunks"
+SASEUL_BLOCK_TPATH=$SASEUL_BLOCK_PATH/"transactions"
+
+SASEUL_LOG_PATH=$SASEUL_PATH/"logs"
+
+echo ""
+
+if [ -d $SASEUL_BLOCK_PATH ] ; then
+    rm -rf $SASEUL_BLOCK_PATH
+fi
+
+if [ ! -d $SASEUL_BLOCK_PATH ] ; then
+    TMP_META=($(ls -ld $SASEUL_DAEMON_PATH))
+    TMP_GROUP="${TMP_META[3]}"
+    TMP_USER="${TMP_META[2]}"
+
+    mkdir $SASEUL_BLOCK_PATH
+    chown -Rf $TMP_USER:$TMP_GROUP $SASEUL_BLOCK_PATH
+    chmod -Rf g+w $SASEUL_BLOCK_PATH
+
+    TMP_META=
+    TMP_GROUP=
+    TMP_USER=
+
+    echo "Block directory created. "
+    echo ""
+fi
+
+if [ -d $SASEUL_LOG_PATH ] ; then
+    rm -rf $SASEUL_LOG_PATH
+fi
+
+if [ ! -d $SASEUL_LOG_PATH ] ; then
+    TMP_META=($(ls -ld $SASEUL_DAEMON_PATH))
+    TMP_GROUP="${TMP_META[3]}"
+    TMP_USER="${TMP_META[2]}"
+
+    mkdir $SASEUL_LOG_PATH
+    chown -Rf $TMP_USER:$TMP_GROUP $SASEUL_LOG_PATH
+    chmod -Rf g+w $SASEUL_LOG_PATH
+
+    TMP_META=
+    TMP_GROUP=
+    TMP_USER=
+
+    echo "Log directory created. "
+    echo ""
+fi
+
+if [ -d $SASEUL_BLOCK_PATH ] ; then
+    TMP_META=($(ls -ld $SASEUL_BLOCK_PATH))
+    TMP_GROUP="${TMP_META[3]}"
+    TMP_USER="${TMP_META[2]}"
+
+    if [ ! -d $SASEUL_BLOCK_APATH ] ; then
+        mkdir $SASEUL_BLOCK_APATH
+        chown -Rf $TMP_USER:$TMP_GROUP $SASEUL_BLOCK_APATH
+        chmod -Rf g+w $SASEUL_BLOCK_APATH
+    fi
+
+    if [ ! -d $SASEUL_BLOCK_BPATH ] ; then
+        mkdir $SASEUL_BLOCK_BPATH
+        chown -Rf $TMP_USER:$TMP_GROUP $SASEUL_BLOCK_BPATH
+        chmod -Rf g+w $SASEUL_BLOCK_BPATH
+    fi
+
+    if [ ! -d $SASEUL_BLOCK_TPATH ] ; then
+        mkdir $SASEUL_BLOCK_TPATH
+        chown -Rf $TMP_USER:$TMP_GROUP $SASEUL_BLOCK_TPATH
+        chmod -Rf g+w $SASEUL_BLOCK_TPATH
+    fi
+
+    TMP_META=
+    TMP_GROUP=
+    TMP_USER=
+
+    echo "Chunk directories created. "
+    echo ""
+fi
+
+if [ -d $SASEUL_API_PATH ] ; then
+    TMP_META=($(ls -ld $SASEUL_API_PATH))
+    TMP_GROUP="${TMP_META[3]}"
+    TMP_USER="${TMP_META[2]}"
+
+    for dir in `ls $SASEUL_COMMON_PATH`
+    do
+        if [ -e $SASEUL_API_PATH/$dir ] ; then
+            rm -rf $SASEUL_API_PATH/$dir
+        fi
+
+        ln -s $SASEUL_COMMON_PATH/$dir $SASEUL_API_PATH/$dir
+        chown -Rf $TMP_USER:$TMP_GROUP $SASEUL_API_PATH/$dir
+        echo $SASEUL_API_PATH/$dir" created. "
+    done
+
+    for dir in `ls $SASEUL_CUSTOM_PATH`
+    do
+        if [ -e $SASEUL_API_PATH/$dir ] ; then
+            rm -rf $SASEUL_API_PATH/$dir
+        fi
+
+        ln -s $SASEUL_CUSTOM_PATH/$dir $SASEUL_API_PATH/$dir
+        chown -Rf $TMP_USER:$TMP_GROUP $SASEUL_API_PATH/$dir
+        echo $SASEUL_API_PATH/$dir" created. "
+    done
+
+    echo "Symlink for api source created. "
+    echo ""
+
+    TMP_META=
+    TMP_GROUP=
+    TMP_USER=
+fi
+
+if [ -d $SASEUL_DAEMON_PATH ] ; then
+    TMP_META=($(ls -ld $SASEUL_DAEMON_PATH))
+    TMP_GROUP="${TMP_META[3]}"
+    TMP_USER="${TMP_META[2]}"
+
+    for dir in `ls $SASEUL_COMMON_PATH`
+    do
+        if [ -e $SASEUL_DAEMON_PATH/$dir ] ; then
+            rm -rf $SASEUL_DAEMON_PATH/$dir
+        fi
+
+        ln -s $SASEUL_COMMON_PATH/$dir $SASEUL_DAEMON_PATH/$dir
+        chown -Rf $TMP_USER:$TMP_GROUP $SASEUL_DAEMON_PATH/$dir
+        echo $SASEUL_DAEMON_PATH/$dir" created. "
+    done
+
+    for dir in `ls $SASEUL_CUSTOM_PATH`
+    do
+        if [ -e $SASEUL_DAEMON_PATH/$dir ] ; then
+            rm -rf $SASEUL_DAEMON_PATH/$dir
+        fi
+
+        ln -s $SASEUL_CUSTOM_PATH/$dir $SASEUL_DAEMON_PATH/$dir
+        chown -Rf $TMP_USER:$TMP_GROUP $SASEUL_DAEMON_PATH/$dir
+        echo $SASEUL_DAEMON_PATH/$dir" created. "
+    done
+
+    echo "Symlink for daemon source created. "
+    echo ""
+
+    TMP_META=
+    TMP_GROUP=
+    TMP_USER=
+fi
+
+if [ -d $SASEUL_SCRIPT_PATH ] ; then
+    TMP_META=($(ls -ld $SASEUL_SCRIPT_PATH))
+    TMP_GROUP="${TMP_META[3]}"
+    TMP_USER="${TMP_META[2]}"
+
+    for dir in `ls $SASEUL_COMMON_PATH`
+    do
+        if [ -e $SASEUL_SCRIPT_PATH/$dir ] ; then
+            rm -rf $SASEUL_SCRIPT_PATH/$dir
+        fi
+
+        ln -s $SASEUL_COMMON_PATH/$dir $SASEUL_SCRIPT_PATH/$dir
+        chown -Rf $TMP_USER:$TMP_GROUP $SASEUL_SCRIPT_PATH/$dir
+        echo $SASEUL_SCRIPT_PATH/$dir" created. "
+    done
+
+    for dir in `ls $SASEUL_CUSTOM_PATH`
+    do
+        if [ -e $SASEUL_SCRIPT_PATH/$dir ] ; then
+            rm -rf $SASEUL_SCRIPT_PATH/$dir
+        fi
+
+        ln -s $SASEUL_CUSTOM_PATH/$dir $SASEUL_SCRIPT_PATH/$dir
+        chown -Rf $TMP_USER:$TMP_GROUP $SASEUL_SCRIPT_PATH/$dir
+        echo $SASEUL_SCRIPT_PATH/$dir" created. "
+    done
+
+    echo "Symlink for script source created. "
+    echo ""
+
+    TMP_META=
+    TMP_GROUP=
+    TMP_USER=
+fi

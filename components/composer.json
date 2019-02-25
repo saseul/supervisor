@@ -1,0 +1,17 @@
+{
+    "name": "artifriends/saseul-origin-components",
+    "type": "library",
+    "authors": [
+        {
+            "name": "artifriends,",
+            "email": "help@artifriends.com"
+        }
+    ],
+    "scripts": {
+        "fixer": "./vendor/bin/php-cs-fixer fix --config=.php_cs.dist"
+    },
+    "require": {},
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.14"
+    }
+}

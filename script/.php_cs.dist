@@ -1,0 +1,29 @@
+<?php
+
+$finder = PhpCsFixer\Finder::create()
+    ->exclude('vendor')
+    ->in('src')
+;
+
+return PhpCsFixer\Config::create()
+    ->setRules([
+        '@PSR2' => true,
+        '@PhpCsFixer' => true,
+        '@PhpCsFixer:risky' => true,
+        'yoda_style' => false,
+        'php_unit_internal_class' => false,
+        'php_unit_test_class_requires_covers' => false,
+        'increment_style' => false,
+        'native_function_invocation' => false,
+        'concat_space' => ['spacing' => 'one'],
+        'phpdoc_annotation_without_dot' => false,
+        'trailing_comma_in_multiline_array' => false,
+        'self_accessor' => true,
+        'logical_operators' => true,
+        'strict_comparison' => false,
+        'strict_param' => false
+    ])
+    ->setFinder($finder)
+    ->setRiskyAllowed(true)
+;
+

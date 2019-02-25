@@ -1,0 +1,24 @@
+{
+    "name": "artifirends/saseul-origin-script",
+    "type": "project",
+    "authors": [
+        {
+            "name": "artifriends",
+            "email": "help@artifriends.com"
+        }
+    ],
+    "scripts": {
+        "fixer": "./vendor/bin/php-cs-fixer fix src --config=.php_cs.dist"
+    },
+    "autoload": {
+        "psr-4": {
+            "src\\": "./src/",
+            "src\\System\\": "../common/System/",
+            "src\\Util\\": "../common/Util/"
+        }
+    },
+    "require": {},
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.14"
+    }
+}

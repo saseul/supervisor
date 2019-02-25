@@ -1,0 +1,62 @@
+#!/bin/sh
+
+. /etc/init.d/functions
+
+if [ -f /etc/sysconfig/saseuld ];then
+	. /etc/sysconfig/saseuld
+fi
+
+RETVAL=0
+prog="saseuld"
+pidfile=${PIDFILE-/var/saseul-origin/saseuld/saseuld.pid}
+lockfile=${LOCKFILE-/var/lock/subsys/saseuld}
+
+start () {
+	echo -n $"Starting $prog: "
+
+	daemon --pidfile ${pidfile} /var/saseul-origin/saseuld/saseuld
+	RETVAL=$?
+	echo
+	[ $RETVAL -eq 0 ] && touch ${lockfile}
+}
+stop () {
+	echo -n $"Stopping $prog: "
+	killproc -p ${pidfile} /var/saseul-origin/saseuld/saseuld
+	RETVAL=$?
+	echo
+	if [ $RETVAL -eq 0 ] ; then
+		rm -f ${lockfile} ${pidfile}
+	fi
+}
+
+restart () {
+        stop
+        start
+}
+
+
+# See how we were called.
+case "$1" in
+  start)
+	start
+	;;
+  stop)
+	stop
+	;;
+  status)
+	status -p ${pidfile} saseuld
+	RETVAL=$?
+	;;
+  restart|reload|force-reload)
+	restart
+	;;
+  condrestart|try-restart)
+	[ -f ${lockfile} ] && restart || :
+	;;
+  *)
+	echo $"Usage: $0 {start|stop|status|restart|reload|force-reload|condrestart|try-restart}"
+	RETVAL=2
+        ;;
+esac
+
+exit $RETVAL

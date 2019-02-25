@@ -1,0 +1,45 @@
+#!/usr/bin/php
+<?php
+
+const ROOT_DIR = __DIR__;
+$SASEUL_GID = getmygid();
+$SASEUL_UID = getmyuid();
+
+require ROOT_DIR . '/vendor/autoload.php';
+require ROOT_DIR . '/src/Manager.php';
+
+$dir_log = ROOT_DIR . '/../logs/';
+$dir_pid = ROOT_DIR . '/';
+posix_setgid($SASEUL_GID);
+posix_setuid($SASEUL_UID);
+
+$options = array(
+    'appName' => 'saseuld',
+    'appDir' => ROOT_DIR,
+    'appDescription' => 'Simple Saseul Daemon',
+    'authorName' => 'jjal',
+    'authorEmail' => 'anonymous16966@gmail.com',
+    'sysMaxExecutionTime' => '0',
+    'sysMaxInputTime' => '0',
+    'sysMemoryLimit' => '4G',
+    'appRunAsGID' => $SASEUL_GID,
+    'appRunAsUID' => $SASEUL_UID,
+    'logLocation' => $dir_log . 'saseuld_log_' . Date('Ymd'),
+    'appPidLocation' => $dir_pid . 'saseuld.pid',
+);
+
+# Set Daemon
+System_Daemon::setOptions($options);
+System_Daemon::start();
+
+# Set Application Manager
+$manager = new \src\Manager();
+
+while (! System_Daemon::isDying()) {
+    # Logging
+    //System_Daemon::info(date('Y-m-d H:i:s') . " - {$count}");
+    $manager->Main();
+    System_Daemon::iterate(0.1);
+}
+
+System_Daemon::stop();

@@ -1,0 +1,12 @@
+#!/usr/bin/php
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+const ROOT_DIR = __DIR__;
+
+posix_setgid(getmygid());
+posix_setuid(getmyuid());
+
+$filename = str_replace(ROOT_DIR . '/', '', __FILE__);
+$launcher = new \src\Application($argv, $filename);

@@ -1,0 +1,15 @@
+#!/usr/bin/php
+<?php
+const ROOT_DIR = __DIR__;
+$SASEUL_GID = getmygid();
+$SASEUL_UID = getmyuid();
+
+posix_setgid($SASEUL_GID);
+posix_setuid($SASEUL_UID);
+
+require ROOT_DIR . '/vendor/autoload.php';
+require ROOT_DIR . '/src/Manager.php';
+
+# Set Daemon
+$manager = new \src\Manager();
+$manager->Main();

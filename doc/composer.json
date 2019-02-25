@@ -1,0 +1,17 @@
+{
+    "name": "saseul-origin/docs",
+    "authors": [
+        {
+            "name": "ArtiFriends",
+            "email": "help@artifriends.com"
+        }
+    ],
+    "scripts": {
+        "doc": "./vendor/bin/phpdoc -d .. --ignore */vendor/*"
+    },
+    "require": {},
+    "require-dev": {
+        "phpdocumentor/phpdocumentor": "^2.9",
+        "jms/serializer": "1.7.*"
+    }
+}
