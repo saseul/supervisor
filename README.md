@@ -2,6 +2,16 @@
 
 Version: 0.5
 
+## Notice
+
+Full features of SASEUL has launched on AWS.
+Not only supervisor nodes but also validator nodes are available with preset environment. 
+See [BaaS Manual](https://www.saseul.com/#/BaaS) and follow the instructions. 
+If you have troubles with activating SASEUL Node, please contact us via [email](mailto:help@artifriends.com).
+
+We are pleased to contact you as our partner.
+If you have a business idea with our blockchain engine, we can provide SASEUL origin for your experiments at a discounted price. Email us!
+
 ## About
 
 Supervisors are nodes that sync all existing blocks on the network.
