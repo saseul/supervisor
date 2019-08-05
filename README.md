@@ -4,6 +4,8 @@ Version: 0.5
 
 ## Notice
 
+<You can get Full SASEUL CODE by downloading on AWS marketplace. LINK: [SASEUL on AWS](https://aws.amazon.com/marketplace/pp/B07SHW8NBD?qid=1564971431403&sr=0-1&ref_=srh_res_product_title)>
+
 Full features of SASEUL has launched on AWS.
 Not only supervisor nodes but also validator nodes are available with preset environment. 
 See [BaaS Manual](https://www.saseul.com/#/BaaS) and follow the instructions. 
